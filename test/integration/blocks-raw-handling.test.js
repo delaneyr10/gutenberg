@@ -30,7 +30,7 @@ describe( 'Blocks raw handling', () => {
 		registerCoreBlocks();
 		registerBlockType( 'test/gallery', {
 			title: 'Test Gallery',
-			category: 'common',
+			category: 'text',
 			attributes: {
 				ids: {
 					type: 'array',

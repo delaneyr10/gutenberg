@@ -36,7 +36,7 @@ describe( 'Edit', () => {
 		const edit = () => <div />;
 		registerBlockType( 'core/test-block', {
 			save: noop,
-			category: 'common',
+			category: 'text',
 			title: 'block title',
 			edit,
 		} );
@@ -50,7 +50,7 @@ describe( 'Edit', () => {
 		const save = () => <div />;
 		registerBlockType( 'core/test-block', {
 			save,
-			category: 'common',
+			category: 'text',
 			title: 'block title',
 		} );
 
@@ -67,7 +67,7 @@ describe( 'Edit', () => {
 		registerBlockType( 'core/test-block', {
 			edit,
 			save: noop,
-			category: 'common',
+			category: 'text',
 			title: 'block title',
 		} );
 
