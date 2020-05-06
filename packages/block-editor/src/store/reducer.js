@@ -457,8 +457,8 @@ function withIgnoredBlockChange( reducer ) {
 const withInnerBlocksRemoveCascade = ( reducer ) => ( state, action ) => {
 	const getAllChildren = ( clientIds ) => {
 		let result = clientIds;
-		for ( let i = 0; i < result.length; i++ ) {
-			if ( ! state.order[ result[ i ] ] ) {
+		for ( const id of result ) {
+			if ( ! state.order[ id ] ) {
 				continue;
 			}
 
@@ -466,7 +466,7 @@ const withInnerBlocksRemoveCascade = ( reducer ) => ( state, action ) => {
 				result = [ ...result ];
 			}
 
-			result.push( ...state.order[ result[ i ] ] );
+			result.push( ...state.order[ id ] );
 		}
 		return result;
 	};
