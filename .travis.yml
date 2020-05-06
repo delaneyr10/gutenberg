@@ -96,7 +96,6 @@ install:
 
 jobs:
   include:
-
     - name: Lint
       install:
         - npm ci
@@ -313,22 +312,5 @@ jobs:
           - $HOME/.gradle/wrapper/
           - node_modules/
 
-    - stage: deploy
-      if: (NOT type IN (pull_request)) AND (branch = master)
-      name: Deploy Playground
-      env: INSTALL_WORDPRESS=false
-      install:
-        - npm ci
-      before_deploy:
-        - npm run storybook:build
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        github_token: $GITHUB_TOKEN
-        keep_history: true
-        local_dir: playground/dist
-        on:
-          branch: master
-
   allow_failures:
-    # nothing is allowed to fail at the moment
+    - name: E2E Mobile tests (Android)
