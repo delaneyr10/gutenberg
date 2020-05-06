@@ -212,7 +212,7 @@ jobs:
 
     - name: E2E Mobile tests (Android)
       language: bash
-      # ignored on non-linux platforms, but bionic is required for nested virtualization
+      # bionic is required for nested virtualization on linux platforms
       dist: bionic
       sudo: true
       # overwrite addons
@@ -246,10 +246,10 @@ jobs:
         # Set up JDK 8 for Android SDK
         - curl "${GRAVIS}.install-jdk-travis.sh" --output ~/.install-jdk-travis.sh
         - export TARGET_JDK="${JDK}"
-        - JDK="1.8" # used when running sdkmanager
+        - JDK="1.8"
         - source ~/.install-jdk-travis.sh
 
-        # Set up JDK 8 for Android SDK - Java is universally needed: codacy, unit tests, emulators
+        # Install Android SDK
         - wget -q "${ANDROID_TOOLS_URL}" -O android-sdk-tools.zip
         - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
         - rm android-sdk-tools.zip
@@ -289,7 +289,6 @@ jobs:
 
         # Build the app (while the emulator is starting)
         - npm ci --no-progress
-        - rm -rf $HOME/.gradle/caches
         - npm run native test:e2e:build-app:android
       before_script:
         # Wait for emulator to be ready
