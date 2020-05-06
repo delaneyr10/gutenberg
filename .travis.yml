@@ -288,6 +288,8 @@ jobs:
           sudo -E sudo -u $USER -E bash -c "${ANDROID_HOME}/emulator/${EMU_COMMAND} -avd test ${ANDROID_AUDIO} ${EMU_PARAMS} &"
 
         # Build the app (while the emulator is starting)
+        - rm -rf $HOME/.npm
+        - ls node_modules
         - npm ci --no-progress
         - npm run native test:e2e:build-app:android
       before_script:
