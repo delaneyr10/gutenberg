@@ -219,13 +219,7 @@ jobs:
       # overwrite addons
       addons:
         apt:
-          packages:
-            - bridge-utils
-            - libpulse0
-            - libvirt-bin
-            - qemu-kvm
-            - virtinst
-            - ubuntu-vm-builder
+          packages: []
       env:
         - TEST_RN_PLATFORM=android
         - TEST_ENV=local
@@ -245,7 +239,8 @@ jobs:
       before_install:
         - java -version
 
-        # add travis user to groups
+        # Set up KVM on linux for hardware acceleration
+        - sudo -E apt-get -yq --no-install-suggests --no-install-recommends install bridge-utils libpulse0 libvirt-bin libxcursor1 qemu-kvm virtinst ubuntu-vm-builder
         - sudo adduser $USER libvirt
         - sudo adduser $USER kvm
 
@@ -284,7 +279,7 @@ jobs:
 
         # Create an Android emulator
         - echo no | avdmanager create avd --force --name test -k "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" -c 10M
-        - printf "\nhw.lcd.height=2960\nhw.lcd.width=1440\nhw.lcd.density=480\nskin.name=1440x2960" >> /home/travis/.android/avd/test.avd/config.ini
+        - printf "\nhw.lcd.height=2160\nhw.lcd.width=1080\nhw.lcd.density=320\nskin.name=1080x2160" >> /home/travis/.android/avd/test.avd/config.ini
         - |
           EMU_PARAMS="-verbose -no-snapshot -no-window -camera-back none -camera-front none -selinux permissive -qemu -m 2048"
           EMU_COMMAND="emulator"
@@ -312,6 +307,8 @@ jobs:
         - bash ~/.clean_gradle_cache.sh > /dev/null
       cache:
         directories:
+          - $ANDROID_HOME
+          - $HOME/.npm
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - node_modules/
