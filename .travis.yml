@@ -12,7 +12,6 @@ cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.jest-cache
-    - $HOME/.npm
     - $HOME/.nvm/.cache
 
 branches:
@@ -38,6 +37,7 @@ addons:
       - libstdc++-4.9-dev
 
 before_install:
+  - rm -rf $HOME/.npm
   - nvm install --latest-npm
   - |
     if [[ "$INSTALL_WORDPRESS" = "true" ]]; then
@@ -288,8 +288,6 @@ jobs:
           sudo -E sudo -u $USER -E bash -c "${ANDROID_HOME}/emulator/${EMU_COMMAND} -avd test ${ANDROID_AUDIO} ${EMU_PARAMS} &"
 
         # Build the app (while the emulator is starting)
-        - rm -rf $HOME/.npm
-        - ls node_modules
         - npm ci --no-progress
         - npm run native test:e2e:build-app:android
       before_script:
