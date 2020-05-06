@@ -231,7 +231,7 @@ jobs:
         - ANDROID_BUILD_TOOLS_VERSION=28.0.3
         - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
         # these can be overridden in a build matrix if we wanted to test multiple builds
-        - ANDROID_API=29
+        - ANDROID_API=28
         - ANDROID_AUDIO=-no-audio
         - ANDROID_ABI=x86_64 # or armeabi-v7a
         - ANDROID_EMU_FLAVOR=google_apis # or default
